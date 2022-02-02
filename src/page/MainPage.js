@@ -1,6 +1,7 @@
 import { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
-import { FlexBox, SearchBar, Button } from '../components/atoms/index';
+import { FlexDiv, SearchBar, Button, Grid } from '../components/atoms/index';
+import MovieCard from '../components/MovieCard';
 
 function MainPage() {
   const [input, setInput] = useState('');
@@ -46,8 +47,8 @@ function MainPage() {
   };
 
   return (
-    <FlexBox column center>
-      <FlexBox middle>
+    <FlexDiv column center>
+      <FlexDiv middle>
         <SearchBar
           type="text"
           className="searchInput"
@@ -57,14 +58,22 @@ function MainPage() {
         <Button className="searchButton" onClick={handleClick}>
           검색
         </Button>
-      </FlexBox>
-      {movieNames.map((el, idx) => (
-        <Fragment key={idx}>
-          <div dangerouslySetInnerHTML={{ __html: el }}></div>
-          <br />
-        </Fragment>
-      ))}
-    </FlexBox>
+      </FlexDiv>
+      {movieData.total ? (
+        <p>
+          총 <b>{movieData.total}</b>개의 영화를 찾았습니다
+        </p>
+      ) : (
+        ''
+      )}
+      <Grid rows={5}>
+        {movieData.items
+          ? movieData.items.map((el, idx) => (
+              <MovieCard movieData={el} key={idx} />
+            ))
+          : ''}
+      </Grid>
+    </FlexDiv>
   );
 }
 

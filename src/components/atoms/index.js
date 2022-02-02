@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 
-export const FlexBox = styled.div`
+export const FlexDiv = styled.div`
   display: flex;
-  width: 100vw;
+  width: ${(props) => props.width || '100vw'};
   ${(props) =>
     props.column &&
     css`
@@ -20,6 +20,12 @@ export const FlexBox = styled.div`
     css`
       align-items: center;
     `}
+`;
+
+export const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(${(props) => props.rows || 10}, 1fr);
+  grid-gap: ${(props) => props.gap || '10px'};
 `;
 
 export const SearchBar = styled.input`
