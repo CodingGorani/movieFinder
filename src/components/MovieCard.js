@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FlexDiv } from './atoms/index';
 import LoadingCard from './LoadingCard';
+import ImageFlipCard from './ImageFlipCard';
 
 function MovieCard({ movieData }) {
   const [loading, setLoading] = useState(false);
@@ -20,24 +21,13 @@ function MovieCard({ movieData }) {
       {data ? (
         <FlexDiv
           column
-          center
           middle
+          spaceBetween
           width={'100%'}
           maxWidth={'150px'}
-          height={'100%'}
+          height={'280px'}
         >
-          <img
-            src={data.image}
-            onClick={() => {
-              window.open(data.link, data.title, '_blank');
-            }}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'contain',
-              boxShadow: '0 2px 5px 1px rgb(64 60 67 / 16%)',
-            }}
-          />
+          <ImageFlipCard data={data} />
           <p
             dangerouslySetInnerHTML={{ __html: data.title }}
             style={{ textAlign: 'center', overflow: 'hidden', height: '1.5em' }}

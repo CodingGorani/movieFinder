@@ -2,9 +2,14 @@ import { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
 import { FlexDiv, SearchBar, Button, Grid } from '../components/atoms/index';
 import MovieCard from '../components/MovieCard';
+import Search from '../components/Search';
+import styled from 'styled-components';
+
+const Header = styled(FlexDiv)`
+  justify-content: center;
+`;
 
 function MainPage() {
-  const [input, setInput] = useState('');
   const [query, setQuery] = useState('');
   const [movieData, setMovieData] = useState([]);
   const [movieNames, setMovieNames] = useState([]);
@@ -36,29 +41,16 @@ function MainPage() {
     setQuery('');
   }
 
-  const handleInputChange = (e) => {
-    const { value } = e.target;
-    setInput(value);
-  };
-
-  const handleClick = () => {
+  const handleSetQuery = (input) => {
     console.log('click!');
     setQuery(input);
   };
 
   return (
-    <FlexDiv column center>
-      <FlexDiv middle>
-        <SearchBar
-          type="text"
-          className="searchInput"
-          onChange={handleInputChange}
-          value={input}
-        />
-        <Button className="searchButton" onClick={handleClick}>
-          검색
-        </Button>
-      </FlexDiv>
+    <div>
+      <Header>
+        <Search handleClick={handleSetQuery} />
+      </Header>
       {movieData.total ? (
         <p>
           총 <b>{movieData.total}</b>개의 영화를 찾았습니다
@@ -66,14 +58,14 @@ function MainPage() {
       ) : (
         ''
       )}
-      <Grid rows={5}>
+      <Grid coloumns={5} rows={2}>
         {movieData.items
           ? movieData.items.map((el, idx) => (
               <MovieCard movieData={el} key={idx} />
             ))
           : ''}
       </Grid>
-    </FlexDiv>
+    </div>
   );
 }
 

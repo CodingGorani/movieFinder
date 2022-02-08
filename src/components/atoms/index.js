@@ -5,7 +5,7 @@ export const FlexDiv = styled.div`
   width: ${(props) => props.width || '100vw'};
   height: ${(props) => props.height || 'auto'};
   max-width: ${(props) => props.maxWidth || 'none'};
-  margin: auto;
+
   ${(props) =>
     props.column &&
     css`
@@ -25,11 +25,19 @@ export const FlexDiv = styled.div`
       align-items: center;
       align-self: center;
     `}
+
+  ${(props) =>
+    props.spaceBetween &&
+    css`
+      justify-content: space-between;
+      align-items: space-between;
+    `}
 `;
 
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(${(props) => props.rows || 10}, 1fr);
+  grid-template-columns: repeat(${(props) => props.columns || 5}, 1fr);
+  grid-template-rows: repeat(${(props) => props.rows || 2}, 1fr);
   grid-gap: ${(props) => props.gap || '30px'};
   width: ${(props) => props.width || 'fit-content'};
 `;
